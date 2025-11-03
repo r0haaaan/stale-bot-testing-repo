@@ -1,0 +1,40 @@
+name: "Lifecycle: Mark and close stale issues"
+
+on:
+  schedule:
+    - cron: "0 2 * * *" # Run every day at 02:00 UTC
+  workflow_dispatch:
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v10
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+          
+          days-before-issue-stale: 1    
+          days-before-issue-close: 1      
+
+    
+          stale-issue-message: >
+            Issues go stale after `180` days of inactivity. `lifecycle/stale` issues rot after an additional `7` days of inactivity and eventually close.
+
+            Mark the issue as fresh by adding a new comment.
+
+            If this issue is safe to close now, please do so.
+
+            Moderators: Add `lifecycle/frozen` label to avoid stale mode.
+          close-issue-message: >
+            Closing this issue as it remained inactive after being marked `lifecycle/stale`.
+
+          stale-issue-label: "lifecycle/stale"
+          exempt-issue-labels: "lifecycle/frozen"
+          start-date: "2025-11-03T00:24:55Z"
+          sort-by: "created"
+          days-before-pr-stale: -1  # disables stale handling for PRs
+          days-before-pr-close: -1
+          remove-issue-stale-when-updated: true
+          labels-to-remove-when-unstale: "lifecycle/stale"
+          operations-per-run: 100
