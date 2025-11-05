@@ -5,6 +5,11 @@ on:
     - cron: "0 2 * * *" # Run every day at 02:00 UTC
   workflow_dispatch:
 
+permissions:
+  issues: write        
+  pull-requests: write 
+  contents: read       
+
 jobs:
   stale:
     runs-on: ubuntu-latest
